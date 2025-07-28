@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/stats
+    username: stats
+    password: stats
+    driver-class-name: org.postgresql.Driver
+
+server:
+  port: 8080
+
+client:
+  url: http://localhost:9090
