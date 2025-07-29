@@ -12,7 +12,7 @@ services:
 
   stats-server:
     build:
-      context: ./stats-service/stats-server
+      context: ./stats/stats-server
     depends_on:
       - stats-db
     ports:
