@@ -15,6 +15,8 @@ public class StatsClient {
 
     /**
      * Сохраняет информацию о запросе к эндпоинту (POST /hit)
+     *
+     * @param hit Входящий EndpointHitDto
      */
     public void saveHit(EndpointHitDto hit) {
         restClient.post()
@@ -27,6 +29,12 @@ public class StatsClient {
 
     /**
      * Получает статистику по посещениям (GET /stats)
+     *
+     * @param start  Дата и время начала диапазона за который нужно выгрузить статистику
+     * @param end Дата и время конца диапазона за который нужно выгрузить статистику
+     * @param uris Список uri для которых нужно выгрузить статистику
+     * @param unique Нужно ли учитывать только уникальные посещения (только с уникальным ip)
+     * @return List<ViewStatsDto> Список посещений
      */
     public List<ViewStatsDto> getStats(String start, String end, List<String> uris, Boolean unique) {
         ViewStatsDto[] statsArray = restClient.get()
