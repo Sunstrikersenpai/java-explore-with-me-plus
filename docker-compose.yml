@@ -23,17 +23,5 @@ services:
       SPRING_DATASOURCE_USERNAME: stats
       SPRING_DATASOURCE_PASSWORD: stats
 
-  ewm-db:
-    image: postgres:16.1
-    environment:
-      POSTGRES_DB: ewm
-      POSTGRES_USER: ewm
-      POSTGRES_PASSWORD: ewm
-    ports:
-      - "6542:5432"
-    volumes:
-      - ewm_data:/var/lib/postgresql/data
-
 volumes:
   stats_data:
-  ewm_data:
