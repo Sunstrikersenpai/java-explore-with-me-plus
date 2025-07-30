@@ -20,7 +20,8 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 server:
-  port: 8080
+#  port: 8080
+  port: 9090
 
-client:
-  url: http://localhost:9090
+#client:
+#  url: http://localhost:9090

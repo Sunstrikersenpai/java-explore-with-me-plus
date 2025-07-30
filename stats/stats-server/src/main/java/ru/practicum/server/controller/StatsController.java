@@ -1,20 +1,43 @@
 package ru.practicum.server.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.server.model.ViewStats;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import ru.practicum.dto.EndpointHitDto;
+import ru.practicum.dto.ViewStatsDto;
+
+import ru.practicum.server.common.GetStatsRequest;
+import ru.practicum.server.mapper.StatsMapper;
+import ru.practicum.server.service.StatsService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/stats")
+@Validated
 public class StatsController {
 
-    @GetMapping
-    public Collection<ViewStats> getAll() {
-        return  null;
+    private final StatsService statsService;
+
+    @PostMapping("/hit")
+    // в соответсвии с ТЗ - данный метод VOID и выдает код 201
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public void create(@RequestBody @Valid EndpointHitDto endpointHitDto) {
+        statsService.createEndpointHit(endpointHitDto);
+    }
+
+    @GetMapping("/stats")
+    public Collection<ViewStatsDto> findAll(
+            @RequestParam(name = "start") String start,
+            @RequestParam(name = "end") String end,
+            @RequestParam(name = "uris", required = false) List<String> uris,
+            @RequestParam(name = "unique", required = false, defaultValue = "false") String unique
+    ) {
+        return statsService.findViewStat(
+                GetStatsRequest.of(start, end, uris, unique));
     }
 }
