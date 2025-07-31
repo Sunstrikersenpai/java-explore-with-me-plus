@@ -10,6 +10,10 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Objects;
 
+// для декодирования значений времени и даты
+//import java.net.URLDecoder;
+//import java.nio.charset.StandardCharsets;
+
 @Data
 @NoArgsConstructor
 public class GetStatsRequest {
@@ -23,6 +27,14 @@ public class GetStatsRequest {
                                      List<String> uris,
                                      String unique) {
         GetStatsRequest getStatsRequest = new GetStatsRequest();
+
+// для декодирования значений времени и даты
+        // `import java.net.URLEncoder;
+        // URLEncoder.encode(start, "UTF-8");
+        // URLEncoder.encode(end, "UTF-8");
+        // String decodedStart = URLDecoder.decode(start, StandardCharsets.UTF_8);
+        // String decodedEnd = URLDecoder.decode(end, StandardCharsets.UTF_8);;
+
         try {
             getStatsRequest.setStart(LocalDateTime.parse(start,
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
