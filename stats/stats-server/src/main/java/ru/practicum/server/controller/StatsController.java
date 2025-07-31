@@ -10,7 +10,6 @@ import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 
 import ru.practicum.server.common.GetStatsRequest;
-import ru.practicum.server.mapper.StatsMapper;
 import ru.practicum.server.service.StatsService;
 
 import java.util.Collection;

@@ -21,6 +21,7 @@ public class StatsMapper {
 
     }
 
+    // по ТЗ контролллер не возвращает DTO
     public static EndpointHitDto toEndpointHitDto(EndpointHit endpointHit) {
         return EndpointHitDto.builder()
                 .app(endpointHit.getApp())
@@ -29,15 +30,6 @@ public class StatsMapper {
                 .timestamp(endpointHit.getTimestamp())
                 .build();
     }
-
-//    public static ViewStats toViewStats(ViewStatsDto viewStatsDto) {
-////        ViewStats viewStats = new ViewStats();
-////        viewStats.setApp(viewStatsDto.getApp());
-////        viewStats.setUri(viewStatsDto.getUri());
-////        viewStats.setHits(viewStatsDto.getHits());
-//
-//        return viewStats;
-//    }
 
     public static ViewStatsDto toViewStatsDto(ViewStats viewStats) {
         return ViewStatsDto.builder()

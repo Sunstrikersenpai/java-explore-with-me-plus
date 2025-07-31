@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.server.exception.ValidationException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -22,14 +23,16 @@ public class GetStatsRequest {
                                      String unique) {
         GetStatsRequest getStatsRequest = new GetStatsRequest();
         try {
-            getStatsRequest.setStart(LocalDateTime.parse(start));
+            getStatsRequest.setStart(LocalDateTime.parse(start,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         } catch (DateTimeParseException e) {
             throw new ValidationException(
                     String.format("Ошибка в параметре дата и время начала диапазона - start = %s", start));
         }
 
         try {
-            getStatsRequest.setEnd(LocalDateTime.parse(end));
+            getStatsRequest.setEnd(LocalDateTime.parse(end,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         } catch (DateTimeParseException e) {
             throw new ValidationException(
                     String.format("Ошибка в параметре дата и время конца диапазона - end = %s", end));
@@ -43,12 +46,11 @@ public class GetStatsRequest {
             getStatsRequest.setUnique(Boolean.valueOf(unique));
         } catch (IllegalArgumentException e) {
             throw new ValidationException(
-                    String.format("Ошибка в параметре запроса только уникальных IP - unique =%s", unique));
+                    String.format("Ошибка в параметре запроса только уникальных IP - unique = %s", unique));
         }
 
         getStatsRequest.setUris(uris);
 
         return getStatsRequest;
     }
-
 }
