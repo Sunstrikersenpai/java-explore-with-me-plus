@@ -26,8 +26,27 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public Collection<ViewStatsDto> findViewStat(GetStatsRequest getStatsRequest) {
+       // если списко uris  не задан
+        if (getStatsRequest.getUris().isEmpty()) {
+            if (getStatsRequest.getUnique())
+                return endpointHitRepository.countIniqueHitsByIp(
+                                getStatsRequest.getStart(),
+                                getStatsRequest.getEnd())
+                        .stream()
+                        .map(StatsMapper::toViewStatsDto)
+                        .toList();
+
+            return endpointHitRepository.countHitsByIp(
+                            getStatsRequest.getStart(),
+                            getStatsRequest.getEnd())
+                    .stream()
+                    .map(StatsMapper::toViewStatsDto)
+                    .toList();
+        }
+
+        // если списко uris задан
        if (getStatsRequest.getUnique())
-           return endpointHitRepository.countHitsByUniqueIp(
+           return endpointHitRepository.countIniqueHitsByIp(
                            getStatsRequest.getStart(),
                            getStatsRequest.getEnd(),
                            getStatsRequest.getUris())
@@ -42,6 +61,7 @@ public class StatsServiceImpl implements StatsService {
                 .stream()
                 .map(StatsMapper::toViewStatsDto)
                 .toList();
+
 
     }
 

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -49,6 +50,7 @@ public class GetStatsRequest {
                     String.format("Ошибка в параметре запроса только уникальных IP - unique = %s", unique));
         }
 
+        if (Objects.isNull(uris)) uris = List.of();
         getStatsRequest.setUris(uris);
 
         return getStatsRequest;
